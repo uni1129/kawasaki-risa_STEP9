@@ -1,0 +1,77 @@
+/* Laravelデフォルトの背景とカードレイアウト */
+body {
+  background-color: #f8fafc;
+  font-family: 'Nunito', sans-serif;
+}
+
+.auth-container {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 650px;
+  background-color: #ffffff;
+  border: 1px solid #dbe2ea;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.auth-card-header {
+  padding: 0.75rem 1.25rem;
+  background-color: #f7f9fa;
+  border-bottom: 1px solid #dbe2ea;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.auth-card-body {
+  padding: 1.5rem;
+}
+
+.form-group-row {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.form-label-col {
+  width: 35%;
+  text-align: right;
+  padding-right: 15px;
+  font-size: 0.9rem;
+  color: #212529;
+}
+
+.form-input-col {
+  width: 60%;
+}
+
+.form-control-input {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+}
+
+.btn-laravel-primary {
+  color: #fff;
+  background-color: #3490dc;
+  border-color: #3490dc;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-laravel-primary:hover {
+  background-color: #2779bd;
+}

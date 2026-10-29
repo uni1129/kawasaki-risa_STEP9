@@ -6,6 +6,7 @@
     <title>Cytech EC</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
 <body>
     <header class="header">
         <div class="header__title">Cytech EC</div>

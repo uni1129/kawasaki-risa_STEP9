@@ -1,10 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SampleController;
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\UserController;
+
+
+// サンプル
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/sample', [SampleController::class, 'showSample']);
+
+Route::get('/app', [AppController::class, 'shoApp']);
 
 
 // ログイン・新規登録・ログアウト

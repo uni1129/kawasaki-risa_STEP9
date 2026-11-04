@@ -1,0 +1,927 @@
+@charset "utf-8";
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border-bottom: 1px solid #ddd;
+}
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.btn-logout {
+  background-color: #c9302c; /* 赤系のボタン */
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  border-top: 1px solid #ddd;
+  margin-top: 50px;
+}
+.footer__contact {
+  margin-bottom: 20px;
+}
+.btn-contact {
+  background-color: #337ab7;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.footer__nav {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.footer__copyright {
+  color: #777;
+  font-size: 14px;
+}
+
+
+
+
+/* index.blade.php */
+
+.item-list-container {
+  padding: 20px;
+}
+
+.item-list-container h2 {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #2d3748;
+}
+
+/* 全体のスタイル */
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.item-table th {
+  border-bottom: 2px solid #e2e8f0;
+  text-align: left;
+  padding: 12px 15px;
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-weight: bold;
+  font-size: 14px;
+}
+.item-table td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 15px;
+  color: #2d3748;
+  vertical-align: middle;
+}
+
+.item-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+
+.btn-detail {
+  background-color: #38a169;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  transition: background-color 0.2s;
+}
+
+.btn-detail:hover {
+  background-color: #2f855a;
+}
+
+
+
+
+/* item_register.blade.php*/
+.item-create-container *,
+.item-create-container *:before,
+.item-create-container *:after {
+    box-sizing: border-box;
+}
+
+.item-create-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px; 
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.item-create-container h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; 
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input[type="file"] {
+    display: block;
+    font-size: 14px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn-primary {
+    background-color: #3182ce;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #2b6cb0;
+}
+
+.btn-secondary {
+    background-color: #a0aec0;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    background-color: #718096;
+}
+
+.btn-secondary {
+  background-color: #a0aec0;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-secondary:hover {
+  background-color: #718096;
+}
+
+.alert-danger {
+  color: #e53e3e;
+  background-color: #fff5f5;
+  border: 1px solid #feb2b2;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.alert-danger ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+
+
+/* my_page.blade.php */
+.mypage-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.mypage-container h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2d3748;
+  margin-bottom: 20px;
+}
+
+/* 上部：ユーザー情報エリア */
+.user-profile-section {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+.user-profile-actions {
+  margin-bottom: 15px;
+}
+
+.user-profile-info {
+  display: flex;
+  gap: 40px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.user-profile-info p {
+  margin: 0 0 8px 0;
+}
+
+/* 各セクション共通見出しエリア */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.exhibition-section h3,
+.purchased-section h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2d3748;
+  margin: 0 0 10px 0;
+}
+
+.exhibition-section {
+  margin-bottom: 40px;
+}
+
+/* テーブルデザイン */
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+}
+
+.item-table th {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  color: #718096;
+  font-weight: bold;
+  background: #f7fafc;
+}
+
+.item-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #edf2f7;
+  color: #2d3748;
+}
+
+.item-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ユーティリティ・ボタン類 */
+.text-right {
+  text-align: right;
+}
+
+.empty-message {
+  text-align: center;
+  color: #a0aec0;
+  padding: 20px !important;
+}
+
+/* ボタン共通 */
+.btn-primary {
+  background-color: #3182ce;
+  color: white;
+  padding: 6px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background-color: #2b6cb0;
+}
+
+
+
+
+
+
+/* item_detail.php*/
+
+/* ボタンエリア全体のレイアウト（左右に分ける） */
+.item-detail-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* 右側のボタンを横並びにする（隙間は gap で調整） */
+.action-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* 削除フォームのインライン化 */
+.delete-form {
+  display: inline;
+  margin: 0;
+}
+
+/* 削除ボタンのデザイン（もし専用クラスがなければ） */
+.btn-danger {
+  background-color: #e25555;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.btn-danger:hover {
+  background-color: #cc4444;
+}
+
+.btn-danger:hover {
+  background-color: #c53030;
+}
+
+
+
+
+
+
+/* 購入側の商品詳細 */
+/* exhibition_item_detail.blade.php */
+.item-detail-card {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+/* タイトルと下線 */
+.item-detail-card h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-group {
+  margin-bottom: 20px;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.detail-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* お気に入りボタン */
+.favorite-icon-wrapper {
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  padding: 4px;
+}
+
+.favorite-svg {
+  fill: #ccc; /* 未選択時の色（グレー） */
+  transition: fill 0.2s ease, transform 0.1s ease;
+}
+
+.favorite-icon-wrapper:hover .favorite-svg {
+  transform: scale(1.1);
+}
+
+/* activeクラスがついたときに赤色にする */
+.favorite-icon-wrapper.active .favorite-svg {
+  fill: #d93838; 
+}
+
+/* ボタン配置エリア */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+/* ボタンのスタイル */
+.btn {
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-primary {
+  background-color: #4169e1;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #3154b3;
+}
+
+
+
+
+
+
+
+/* item_edit.blade.php */
+.item-form-card {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+/* タイトルと下線 */
+.item-form-card h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+/* 各フォームグループ */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* 入力フィールド */
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.form-control:focus {
+  border-color: #66afe9;
+  outline: none;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+/* ボタン配置エリア */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+/* 戻るボタン（グレー） */
+.btn-secondary {
+  display: inline-block;
+  padding: 8px 24px;
+  background-color: #6c757d;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  text-align: center;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* 更新・登録ボタン（ブルー） */
+.btn-primary {
+  padding: 8px 24px;
+  background-color: #4169e1; /* 登録画面の青色に合わせて調整 */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background-color: #3154b3;
+}
+
+
+
+
+
+/* profile_edit.blade.php */
+/* アカウント編集画面 */
+.profile-edit-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.profile-edit-container h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: #4169e1;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-primary {
+  background-color: #4169e1;
+  color: white;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #3255cc;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #c3e6cb;
+}
+
+
+
+
+
+
+/* contact.blade.php */
+/* お問い合わせ・各種フォーム画面の共通スタイル */
+.contact-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.contact-container h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.form-control:focus {
+  border-color: #4169e1;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-primary {
+  background-color: #4169e1;
+  color: white;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #3255cc;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-danger ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #c3e6cb;
+}
+
+
+
+
+
+
+/* buy.blade.php */
+/* 購入確認画面のコンテナ（商品詳細やアカウント編集と統一） */
+.purchase-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.purchase-container h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* 商品情報部分 */
+.purchase-item-info {
+  margin-bottom: 30px;
+}
+
+.item-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.item-price {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* ボタン配置エリア */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+/* 戻るボタン（グレー） */
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* 購入するボタン（プライベートブルー） */
+.btn-primary {
+  background-color: #4169e1;
+  color: white;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #3255cc;
+}
+
+/* アラート表示 */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-danger ul {
+  margin: 0;
+  padding-left: 20px;
+}

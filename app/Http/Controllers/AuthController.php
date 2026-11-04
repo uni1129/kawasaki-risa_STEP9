@@ -25,7 +25,8 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            // intended()を使うことで、アクセスしようとして弾かれた元のページやホームへ遷移します
+            return redirect()->intended(route('home'));
         }
 
         return back()->withErrors([
@@ -60,7 +61,8 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/');
+        // ルート名（home）を指定してトップページへリダイレクト
+        return redirect()->route('home');
     }
 
     // ログアウト処理

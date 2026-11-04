@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class AppController extends Controller
 {
 
-    public function showapp()
+    public function showApp()
     {
         return view('app');
     }

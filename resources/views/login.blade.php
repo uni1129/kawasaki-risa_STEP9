@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +10,27 @@
 
 
 <body>
+    <div class="top-title">
+        <h3>Laravel</h3>
+        <ul>
+            <li><a href="{{ route('login') }}">Login</a></li>
+            <li><a href="{{ route('register') }}">Register</a></li>
+        </ul>
+    </div>
+
+
     <div class="auth-container">
         <div class="auth-card">
             <div class="auth-card-header">Login</div>
             <div class="auth-card-body">
                 @if ($errors->any())
-                    <div style="color: red; margin-bottom: 15px; font-size: 0.85rem;">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div style="color: red; margin-bottom: 15px; font-size: 0.85rem;">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
 
                 <form action="{{ route('login') }}" method="POST">
@@ -52,4 +62,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('content')
-    <h2>一覧画面</h2>
+    <h2>商品一覧</h2>
 
     {{-- コントローラーからデータが渡されている場合の表示例 --}}
     @if(isset($items) && count($items) > 0)

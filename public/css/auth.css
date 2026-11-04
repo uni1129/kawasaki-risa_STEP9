@@ -1,7 +1,30 @@
-/* Laravelデフォルトの背景とカードレイアウト */
+/* Login */
 body {
   background-color: #f8fafc;
   font-family: 'Nunito', sans-serif;
+}
+
+.top-title{
+  display: flex;
+  background-color: #ffffff;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+h3{
+  font-size: 16px;
+}
+
+ul{
+  display: flex;
+  list-style: none;
+  gap: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: #212529;
+  font-size: 14px;
 }
 
 .auth-container {

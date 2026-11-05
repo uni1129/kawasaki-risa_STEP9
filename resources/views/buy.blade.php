@@ -27,6 +27,13 @@
   <form action="{{ route('item.purchase', $item->id) }}" method="POST">
     @csrf
 
+    {{-- 商品画像を表示する --}}
+    @if(!empty($item->image))
+        <img src="{{ asset($item->image) }}" alt="{{ $item->name }}" width="150">
+    @else
+        <p>画像はありません</p>
+    @endif
+
     <div class="form-group">
       <label for="quantity">数量</label>
       <!-- 在庫数を上限（max）に設定 -->

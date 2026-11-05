@@ -42,7 +42,7 @@ class MypageController extends Controller
             'username' => 'required|string|max:255',
             'email'    => 'required|email|max:255',
             'name'     => 'required|string|max:255',
-            'kana_name' => 'required|string|max:255', // ここが kana_name になっているか
+            'kana_name' => 'required|string|max:255', 
         ]);
 
         $user = Auth::user();
@@ -51,7 +51,7 @@ class MypageController extends Controller
             'username'  => $request->username,
             'email'     => $request->email,
             'name'      => $request->name,
-            'kana_name' => $request->kana_name, // ★ここも kana_name になっているか確認
+            'kana_name' => $request->kana_name,
         ]);
 
         return redirect()->route('mypage')->with('success', 'アカウント情報を更新しました！');
@@ -75,10 +75,6 @@ class MypageController extends Controller
     {
         $item = Item::where('user_id', Auth::id())->findOrFail($id);
 
-        // 画像ファイルが保存されている場合はストレージから削除（任意）
-        if ($item->image && Storage::disk('public')->exists($item->image)) {
-            Storage::disk('public')->delete($item->image);
-        }
 
         $item->delete();
 
@@ -107,14 +103,15 @@ class MypageController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // 画像の差し替え処理
-        $imagePath = $item->image;
+
+        // 新しい画像がアップロードされた場合の処理
         if ($request->hasFile('image')) {
-            // 古い画像を削除する場合（必要に応じて）
-            if ($item->image && Storage::disk('public')->exists($item->image)) {
-                Storage::disk('public')->delete($item->image);
-            }
-            $imagePath = $request->file('image')->store('items', 'public');
+            $image = $request->file('image');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            // public/items フォルダに直接保存
+            $image->move(public_path('items'), $filename);
+            $imagePath = 'items/' . $filename;
+            $imagePath = $item->image; 
         }
 
         // データの更新

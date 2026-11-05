@@ -250,6 +250,17 @@ header {
 
 
 
+
+
+/* 画像 */
+.item-detail-image{
+  width: 30%;
+}
+
+
+
+
+
 /* my_page.blade.php */
 .mypage-container {
   max-width: 900px;
@@ -837,91 +848,91 @@ textarea.form-control {
 /* buy.blade.php */
 /* 購入確認画面のコンテナ（商品詳細やアカウント編集と統一） */
 .purchase-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 40px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .purchase-container h2 {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #eaeaea;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eaeaea;
 }
 
 /* 商品情報部分 */
 .purchase-item-info {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .item-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 12px;
 }
 
 .item-price {
-  font-size: 16px;
-  color: #333;
-  font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
 }
 
 /* ボタン配置エリア */
 .form-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
 }
 
 /* 戻るボタン（グレー） */
 .btn-secondary {
-  background-color: #6c757d;
-  color: white;
-  padding: 8px 20px;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 14px;
-  display: inline-block;
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
 }
 
 .btn-secondary:hover {
-  background-color: #5a6268;
+    background-color: #5a6268;
 }
 
 /* 購入するボタン（プライベートブルー） */
 .btn-primary {
-  background-color: #4169e1;
-  color: white;
-  padding: 8px 24px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
+    background-color: #4169e1;
+    color: white;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
-  background-color: #3255cc;
+    background-color: #3255cc;
 }
 
 /* アラート表示 */
 .alert-danger {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  border: 1px solid #f5c6cb;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
 }
 
 .alert-danger ul {
-  margin: 0;
-  padding-left: 20px;
+    margin: 0;
+    padding-left: 20px;
 }

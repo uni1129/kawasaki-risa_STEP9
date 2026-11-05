@@ -9,13 +9,13 @@ class Item extends Model
 {
     use HasFactory;
 
-    // 一括保存を許可するカラム（カラム名はデータベースの仕様に合わせて調整してください）
+    // 一括保存を許可するカラム
     protected $fillable = [
         'user_id',
         'name',
         'description',
         'price',
-        'image_path',
+        'image',
         'stock',
     ];
 
@@ -28,7 +28,7 @@ class Item extends Model
     }
 
 
-    //  この商品へのお気に入り一覧（Favoriteモデルとのリレーション）
+    //  この商品へのお気に入り一覧
 
     public function favorites()
     {

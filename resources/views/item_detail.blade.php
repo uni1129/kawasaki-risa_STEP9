@@ -23,7 +23,7 @@
       <span class="detail-label">画像：</span>
       <div class="detail-image-area">
         @if(!empty($item->image))
-          <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" class="item-detail-image">
+          <img src="{{ asset($item->image) }}" alt="商品画像" class="item-detail-image">
         @else
           <p>画像はありません</p>
         @endif

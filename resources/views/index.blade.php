@@ -3,9 +3,9 @@
 @section('content')
 
 @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
 @endif
 
 <div class="container item-list-container">
@@ -26,22 +26,22 @@
         </thead>
         <tbody>
             @foreach ($items as $item)
-                <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->description }}</td>
-                    <td>
-                        @if(!empty($item->image))
-                            <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" class="item-thumbnail">
-                        @else
-                            -
-                        @endif
-                    </td>
-                    <td>{{ number_format($item->price) }}</td>
-                    <td>
+            <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->description }}</td>
+                <td>
+                    @if($item->image)
+                    <img src="{{ asset($item->image) }}" alt="{{ $item->name }}" width="100">
+                    @else
+                    画像なし
+                    @endif
+                </td>
+                <td>{{ number_format($item->price) }}</td>
+                <td>
                     <a href="{{ route('item.show', $item->id) }}" class="btn-detail">詳細</a>
-                    </td>
-                </tr>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>

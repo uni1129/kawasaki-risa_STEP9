@@ -23,7 +23,7 @@
       <div class="detail-image-area" style="margin-top: 10px;">
         {{-- $item->image に値が入っているか確認 --}}
         @if(!empty($item->image))
-        <img src="{{ asset('storage/' . $item->image) }}" alt="商品画像" style="max-width: 250px; height: auto; border-radius: 4px;">
+        <img src="{{ asset($item->image) }}" alt="商品画像">
         @else
         <p>画像はありません</p>
         @endif

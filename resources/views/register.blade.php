@@ -32,7 +32,7 @@
                 </div>
                 @endif
 
-                <form action="{{ route('register') }}" method="POST">
+                <form method="POST" action="{{ route('register.store') }}">
                     @csrf
                     <div class="form-group-row">
                         <label for="name" class="form-label-col">Name (ユーザ名)</label>
@@ -42,16 +42,16 @@
                     </div>
 
                     <div class="form-group-row">
-                        <label for="kanji_name" class="form-label-col">名前 (漢字)</label>
+                        <label for="name_kanji" class="form-label-col">名前 (漢字)</label>
                         <div class="form-input-col">
-                            <input type="text" id="kanji_name" class="form-control-input" name="kanji_name" value="{{ old('kanji_name') }}" required>
+                            <input type="text" id="name_kanji" class="form-control-input" name="name_kanji" value="{{ old('name_kanji') }}" required>
                         </div>
                     </div>
 
                     <div class="form-group-row">
-                        <label for="kana_name" class="form-label-col">名前 (カナ)</label>
+                        <label for="name_kana" class="form-label-col">名前 (カナ)</label>
                         <div class="form-input-col">
-                            <input type="text" id="kana_name" class="form-control-input" name="kana_name" value="{{ old('kana_name') }}" required>
+                            <input type="text" id="name_kana" class="form-control-input" name="name_kana" value="{{ old('name_kana') }}" required>
                         </div>
                     </div>
 

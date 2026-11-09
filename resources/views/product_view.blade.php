@@ -4,10 +4,10 @@
     <h2>商品一覧</h2>
 
     {{-- コントローラーからデータが渡されている場合の表示例 --}}
-    @if(isset($items) && count($items) > 0)
+    @if(isset($products) && count($products) > 0)
         <ul>
-            @foreach($items as $item)
-                <li>{{ $item->name }}</li>
+            @foreach($products as $product)
+                <li>{{ $product->product_name }}</li>
             @endforeach
         </ul>
     @else

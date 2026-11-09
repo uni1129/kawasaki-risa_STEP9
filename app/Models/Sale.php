@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Sale extends Model
 {
     use HasFactory;
 
-    // 一括保存を許可するカラム
     protected $fillable = [
         'user_id',
-        'item_id',
-        'price',
+        'product_id',
+        'quantity',
+        // 'price',
     ];
-
 
     //  購入したユーザー（Userモデルとのリレーション）
 
@@ -25,10 +24,10 @@ class Order extends Model
     }
 
 
-    //  購入された商品（Itemモデルとのリレーション）
+    //  購入された商品
 
-    public function item()
+    public function product()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Product::class);
     }
 }

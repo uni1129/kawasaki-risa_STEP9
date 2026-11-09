@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<div class="container item-create-container">
+<div class="container product-create-container">
   <h2>商品登録</h2>
 
   <!-- バリデーションエラー表示 -->
@@ -15,13 +15,13 @@
   </div>
   @endif
 
-  <form action="{{ route('item.store') }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
 
     <div class="form-group">
-      <label for="name">商品名</label>
-      <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+      <label for="product_name">商品名</label>
+      <input type="text" id="product_name" name="product_name" value="{{ old('product_name') }}" required>
     </div>
 
     <div class="form-group">
@@ -40,8 +40,8 @@
     </div>
 
     <div class="form-group">
-      <label for="image">商品画像</label>
-      <input type="file" id="image" name="image">
+      <label for="img_path">商品画像</label>
+      <input type="file" name="img_path" id="img_path" required>
     </div>
 
     <div class="form-actions">

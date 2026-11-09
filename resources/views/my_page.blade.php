@@ -16,8 +16,8 @@
         <p><strong>Eメール:</strong> {{ $user->email }}</p>
       </div>
       <div>
-        <p><strong>名前：</strong> {{ $user->real_name ?? $user->name }}</p>
-        <p><strong>カナ：</strong> {{ $user->kana_name ?? '' }}</p>
+        <p><strong>名前：</strong> {{ $user->name_kanji ?? $user->name }}</p>
+        <p><strong>カナ：</strong> {{ $user->name_kana ?? '' }}</p>
       </div>
     </div>
   </div>
@@ -26,10 +26,10 @@
   <div class="exhibition-section">
     <div class="section-header">
       <h3>&lt;出品商品&gt;</h3>
-      <a href="{{ route('item.create') }}" class="btn-primary">新規登録</a>
+      <a href="{{ route('product.create') }}" class="btn-primary">新規登録</a>
     </div>
 
-    <table class="item-table">
+    <table class="product-table">
       <thead>
         <tr>
           <th>商品番号</th>
@@ -40,14 +40,14 @@
         </tr>
       </thead>
       <tbody>
-        @forelse($items as $item)
+        @forelse($products as $product)
         <tr>
-          <td>{{ $item->id }}</td>
-          <td>{{ $item->name }}</td>
-          <td>{{ $item->description }}</td>
-          <td>¥{{ number_format($item->price) }}</td>
+          <td>{{ $product->id }}</td>
+          <td>{{ $product->product_name }}</td>
+          <td>{{ $product->description }}</td>
+          <td>¥{{ number_format($product->price) }}</td>
           <td class="text-right">
-            <a href="{{ route('exhibition.item.detail', $item->id) }}" class="btn-detail">詳細</a>
+            <a href="{{ route('mypage.product.detail', $product->id) }}" class="btn-detail">詳細</a>
           </td>
         </tr>
         @empty
@@ -63,7 +63,7 @@
   <div class="purchased-section">
     <h3>&lt;購入した商品&gt;</h3>
 
-    <table class="item-table">
+    <table class="product-table">
       <thead>
         <tr>
           <th>商品名</th>
@@ -73,16 +73,16 @@
         </tr>
       </thead>
       <tbody>
-        @forelse($purchasedOrders ?? [] as $order)
+        @forelse($sales as $sale)
         <tr>
-          <td>{{ $order->item->name ?? '不明な商品' }}</td>
-          <td>{{ $order->item->description ?? '' }}</td>
-          <td>¥{{ number_format($order->item->price) }}</td>
-          <td>{{ $order->quantity ?? 1 }}</td>
+          <td>{{ $sale->product->product_name ?? '不明な商品' }}</td>
+          <td>{{ $sale->product->description ?? '' }}</td>
+          <td>¥{{ number_format($sale->product?->price ?? 0) }}</td>
+          <td>{{ $sale->quantity }}</td>
         </tr>
         @empty
         <tr>
-          <td colspan="4" class="empty-message">購入した商品はありません。</td>
+          <td colspan="4">購入した商品はありません。</td>
         </tr>
         @endforelse
       </tbody>

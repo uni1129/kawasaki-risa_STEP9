@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Product extends Model
 {
     use HasFactory;
 
     // 一括保存を許可するカラム
     protected $fillable = [
         'user_id',
-        'name',
+        'company_id',
+        'product_name',
         'description',
         'price',
-        'image',
+        'img_path',
         'stock',
     ];
 
@@ -36,14 +37,18 @@ class Item extends Model
     }
 
 
-    // ユーザーがこの商品をお気に入り登録しているか判定するメソッド
+    // likesテーブルとのリレーション
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 
-    public function isFavoritedBy($user)
+    // ログインユーザーがこの商品をお気に入り登録しているか判定
+    public function isLikedBy($user)
     {
         if (!$user) {
             return false;
         }
-
-        return $this->favorites()->where('user_id', $user->id)->exists();
+        return $this->likes()->where('user_id', $user->id)->exists();
     }
 }

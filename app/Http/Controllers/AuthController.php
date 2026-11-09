@@ -45,16 +45,16 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'kanji_name' => 'required|string|max:255',
-            'kana_name' => 'required|string|max:255',
+            'name_kanji' => 'required|string|max:255',
+            'name_kana' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'kanji_name' => $request->kanji_name,
-            'kana_name' => $request->kana_name,
+            'name_kanji' => $request->name_kanji,
+            'name_kana' => $request->name_kana,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

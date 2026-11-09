@@ -47,7 +47,7 @@
 
         <!-- ボタンエリア（戻る・送信） -->
         <div class="form-actions">
-            <a href="{{ route('mypage') }}" class="btn-secondary">戻る</a>
+            <a href="{{ route('home') }}" class="btn-secondary">戻る</a>
             <button type="submit" class="btn-primary">送信</button>
         </div>
     </form>

@@ -11,10 +11,11 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
-        'kanji_name',
-        'kana_name',
+        'name_kanji',
+        'name_kana',
         'email',
         'password',
+        'company_id',
     ];
 
     protected $hidden = [

@@ -12,7 +12,7 @@ class Favorite extends Model
     // 一括保存を許可するカラムを指定
     protected $fillable = [
         'user_id',
-        'item_id',
+        'product_id',
     ];
 
 
@@ -23,9 +23,9 @@ class Favorite extends Model
         return $this->belongsTo(User::class);
     }
 
-    //  お気に入り対象の商品（Itemモデルとのリレーション）
-    public function item()
+    //  お気に入り対象の商品
+    public function product()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(product::class);
     }
 }

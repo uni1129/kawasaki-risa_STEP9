@@ -6,15 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // 出品者のID
-            $table->string('name');                          // 商品名
+            $table->string('product_name');                          // 商品名
             $table->integer('price');                        // 価格
             $table->text('description');                     // 商品説明（text型なので文章が入れられます）
             $table->string('image')->nullable();             // 画像パス（未選択でもエラーにならないようnullable）
@@ -23,9 +20,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('items');

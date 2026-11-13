@@ -10,41 +10,40 @@ use App\Models\Like;
 
 class ProductController extends Controller
 {
-
   public function index(Request $request)
   {
-    $userId = Auth::id();
+      $userId = Auth::id();
 
-    // ログインユーザー以外 ＆ 商品番号の昇順
-    $query = Product::where('user_id', '!=', $userId)
-      ->orderBy('id', 'asc');
+      $query = Product::where('user_id', '!=', $userId)
+        ->orderBy('id', 'asc');
 
-    // 商品名の部分一致検索
-    if ($request->filled('keyword')) {
-      $query->where('product_name', 'like', '%' . $request->keyword . '%');
-    }
+      $keyword = $request->input('keyword');
+      $minPrice = $request->input('min_price'); 
+      $maxPrice = $request->input('max_price'); 
 
-    // 最低価格の条件
-    if ($request->filled('min_price')) {
-      $query->where('price', '>=', $request->min_price);
-    }
+      $products = $query->when($keyword, function ($q, $keyword) {
+            return $q->where('product_name', 'like', '%' . $keyword . '%');
+        })
+        ->when($minPrice, function ($q, $minPrice) {
+            return $q->where('price', '>=', $minPrice);
+        })
+        ->when($maxPrice, function ($q, $maxPrice) {
+            return $q->where('price', '<=', $maxPrice);
+        })
+        ->get();
 
-    // 最高価格の条件
-    if ($request->filled('max_price')) {
-      $query->where('price', '<=', $request->max_price);
-    }
+      if ($request->ajax()) {
+          return view('product_list', compact('products'))->render();
+      }
 
-    // 最後にデータを取得
-    $products = $query->get();
-
-    return view('index', compact('products'));
+      return view('index', compact('products'));
   }
 
 
   // 商品新規登録画面を表示するメソッド
   public function create()
   {
-    return view('product_create'); // 登録画面のBladeファイル名に合わせて変更してください
+    return view('product_create');
 
   }
 
@@ -120,7 +119,6 @@ class ProductController extends Controller
   }
 
 
-
   // 購入処理（API用としてJSONを返す）
   public function purchase(Request $request, $id)
   {
@@ -152,7 +150,7 @@ class ProductController extends Controller
     // 在庫数を減らす
     $product->decrement('stock', $quantity);
 
-    // ★ ここで必ずJSONを返す（JavaScriptがこれを受け取ります）
+    // ここで必ずJSONを返す（JavaScriptがこれを受け取ります）
     return response()->json([
       'success' => true,
       'message' => '購入が完了しました！',
@@ -169,9 +167,8 @@ class ProductController extends Controller
       return redirect()->route('mypage')->with('error', '権限がありません。');
     }
 
-    // ★ editメソッドは本来の編集画面（ビュー）を返すように戻す
-    return view('product.edit', compact('product')); 
-    // ※もしビューのファイル名が違う場合は、お使いのビュー名に合わせてください
+    // editメソッドは本来の編集画面（ビュー）を返すように戻す
+    return view('product.edit', compact('product'));
   }
 
   // 商品情報を更新
@@ -226,28 +223,28 @@ class ProductController extends Controller
 
 
   public function like(Product $product)
-    {
-        $user = Auth::user();
+  {
+    $user = Auth::user();
 
-        if (!$user) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
-        }
-
-        $like = Like::where('user_id', $user->id)
-                    ->where('product_id', $product->id)
-                    ->first();
-
-        if ($like) {
-            $like->delete();
-            $liked = false;
-        } else {
-            Like::create([
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-            ]);
-            $liked = true;
-        }
-
-        return response()->json(['liked' => $liked]);
+    if (!$user) {
+      return response()->json(['error' => 'Unauthenticated.'], 401);
     }
+
+    $like = Like::where('user_id', $user->id)
+      ->where('product_id', $product->id)
+      ->first();
+
+    if ($like) {
+      $like->delete();
+      $liked = false;
+    } else {
+      Like::create([
+        'user_id' => $user->id,
+        'product_id' => $product->id,
+      ]);
+      $liked = true;
+    }
+
+    return response()->json(['liked' => $liked]);
+  }
 }

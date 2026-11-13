@@ -7,11 +7,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MypageController;
-use App\Http\Controllers\LikeController;
 
 // トップページ（商品一覧 ＆ 検索結果）
-Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('product.index'); // 検索用としても使用
+Route::get('/home', [ProductController::class, 'index'])->name('home');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 // サンプル・アプリ画面
 Route::get('/sample', [SampleController::class, 'showSample']);
@@ -52,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.exhibition');
 
+
+
     // 出品商品管理関連（マイページからの詳細・編集・削除）
     Route::get('/mypage/product/{id}', [MypageController::class, 'show'])->name('mypage.product.detail');
     Route::get('/mypage/product/{id}/edit', [MypageController::class, 'edit'])->name('product.edit');
@@ -63,4 +64,10 @@ Route::middleware(['auth'])->group(function () {
 
     // 商品の更新処理
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('product.update');
+
+    // フォーム画面を表示するルート
+    Route::get('/products/{id}/contact', [ContactController::class, 'showContactForm'])->name('product.contact.form');
+
+    // メインの送信処理ルート
+    Route::post('/products/{id}/contact', [ContactController::class, 'send'])->name('product.contact');
 });

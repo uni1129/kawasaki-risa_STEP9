@@ -11,7 +11,7 @@
         <!-- ユーザ名 -->
         <div class="account-form-group">
             <label class="account-form-label">ユーザ名</label>
-            <input type="text" name="username" value="{{ old('username', $user->username ?? '') }}" class="account-form-input">
+            <input type="text" name="name" value="{{ old('name', $user->name ?? '') }}" class="account-form-input">
         </div>
 
         <!-- Eメール -->
@@ -23,13 +23,13 @@
         <!-- 名前 -->
         <div class="account-form-group">
             <label class="account-form-label">名前</label>
-            <input type="text" name="name" value="{{ old('name', $user->name ?? '') }}" class="account-form-input">
+            <input type="text" name="kanji" value="{{ old('name_kanji', $user->name_kanji) }}" class="account-form-input">
         </div>
 
         <!-- カナ -->
         <div class="account-form-group">
             <label class="account-form-label">カナ</label>
-            <input type="text" name="kana" value="{{ old('kana', $user->kana ?? '') }}" class="account-form-input">
+            <input type="text" name="kana" value="{{ old('name_kana', $user->name_kana) }}" class="account-form-input">
         </div>
 
         <div class="account-button-group">

@@ -17,7 +17,7 @@
   @endif
 
   <!-- 購入フォームで全体を囲む -->
-  <form id="purchase-form" data-product-id="{{ $product->id }}" data-mypage-url="{{ route('mypage') }}">
+  <form id="purchase-form" data-product-id="{{ $product->id }}" data-redirect-url="/home">
     @csrf
 
     <div class="purchase-product-info">
@@ -52,7 +52,7 @@
 
       <!-- 会社名 -->
       <div class="product-company-section">
-        <p>会社：{{ $product->company_name ?? '' }}</p>
+      <p>会社：{{ $product->company->name ?? '' }}</p>
       </div>
     </div>
 
@@ -64,14 +64,14 @@
   </form>
 </div>
 
-<!-- ★ 購入確認モーダル -->
-<div id="purchase-modal" class="modal" style="display: none;">
+<!-- 購入確認モーダル -->
+<div id="purchase-modal" class="modal">
   <div class="modal-content">
     <h2>購入の確認</h2>
     <p>この商品を本当に購入しますか？</p>
     <div class="modal-actions">
-      <button type="button" id="modal-cancel" class="btn-secondary" style="background-color: #6c757d; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">キャンセル</button>
-      <button type="button" id="modal-confirm" class="btn-primary" style="background-color: #4169e1; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">購入する</button>
+      <button type="button" id="modal-cancel" class="btn-secondary">キャンセル</button>
+      <button type="button" id="modal-confirm" class="btn-primary">購入する</button>
     </div>
   </div>
 </div>

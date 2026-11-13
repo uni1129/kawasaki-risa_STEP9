@@ -61,8 +61,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        // ルート名（home）を指定してトップページへリダイレクト
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 
     // ログアウト処理

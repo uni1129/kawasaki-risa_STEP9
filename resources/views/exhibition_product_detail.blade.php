@@ -39,7 +39,7 @@
     <!-- 会社名 -->
     <div class="detail-group">
       <span class="detail-label">会社：</span>
-      <span class="detail-value">{{ $product->user->company_name ?? 'TNG' }}</span>
+      <span class="detail-value">{{ $product->user->company_name ?? '' }}</span>
     </div>
 
     <!-- お気に入りハートマーク -->
@@ -52,7 +52,7 @@
     </div>
 
     <!-- ボタンエリア -->
-    <form action="{{ route('product.purchase', $product->id) }}" method="POST">
+    <form action="{{ route('product.buy', $product->id) }}" method="POST">
       @csrf
       <div class="form-actions">
         <a href="{{ route('home') }}" class="btn btn-secondary">戻る</a>

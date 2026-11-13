@@ -45,7 +45,7 @@
     </div>
 
     <div class="form-actions">
-      <a href="{{ route('home') }}" class="btn-secondary">戻る</a>
+      <a href="{{ route('mypage') }}" class="btn-secondary">戻る</a>
       <button type="submit" class="btn-primary">登録</button>
     </div>
   </form>

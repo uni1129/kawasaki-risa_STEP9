@@ -41,17 +41,17 @@ class MypageController extends Controller
 
         // 4つの項目に対応したバリデーション
         $request->validate([
-            'username' => 'required|string|max:255',
-            'email'    => 'required|email|max:255|unique:users,email,' . $user->id,
-            'name'     => 'required|string|max:255',
-            'kana'     => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'kanji' => 'required|string|max:255',
+            'kana' => 'required|string|max:255',
         ]);
 
         // それぞれの値代入
-        $user->username = $request->input('username');
-        $user->email    = $request->input('email');
-        $user->name     = $request->input('name');
-        $user->kana     = $request->input('kana');
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->name_kanji = $request->input('kanji');
+        $user->name_kana = $request->input('kana');
         $user->save();
 
         return redirect()->route('mypage')->with('success', 'アカウント情報を更新しました！');

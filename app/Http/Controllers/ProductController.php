@@ -7,36 +7,42 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Like;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+  // 検索バー
   public function index(Request $request)
   {
-      $userId = Auth::id();
+    $keyword = $request->input('keyword');
+    $minPrice = $request->input('min_price');
+    $maxPrice = $request->input('max_price');
 
-      $query = Product::where('user_id', '!=', $userId)
-        ->orderBy('id', 'asc');
+    $query = Product::query();
 
-      $keyword = $request->input('keyword');
-      $minPrice = $request->input('min_price'); 
-      $maxPrice = $request->input('max_price'); 
+    if (Auth::check()) {
+      $query->where('user_id', '!=', Auth::id());
+    }
 
-      $products = $query->when($keyword, function ($q, $keyword) {
-            return $q->where('product_name', 'like', '%' . $keyword . '%');
-        })
-        ->when($minPrice, function ($q, $minPrice) {
-            return $q->where('price', '>=', $minPrice);
-        })
-        ->when($maxPrice, function ($q, $maxPrice) {
-            return $q->where('price', '<=', $maxPrice);
-        })
-        ->get();
 
-      if ($request->ajax()) {
-          return view('product_list', compact('products'))->render();
-      }
+    // 商品名検索
+    if (!empty($keyword)) {
+      $query->where('product_name', 'LIKE', "%{$keyword}%");
+    }
 
-      return view('index', compact('products'));
+    // 最低価格の絞り込み
+    if (!empty($minPrice)) {
+      $query->where('price', '>=', $minPrice);
+    }
+
+    // 最高価格の絞り込み
+    if (!empty($maxPrice)) {
+      $query->where('price', '<=', $maxPrice);
+    }
+
+    $products = $query->get();
+
+    return view('index', compact('products'));
   }
 
 
@@ -44,7 +50,6 @@ class ProductController extends Controller
   public function create()
   {
     return view('product_create');
-
   }
 
 
@@ -120,41 +125,44 @@ class ProductController extends Controller
 
 
   // 購入処理（API用としてJSONを返す）
-  public function purchase(Request $request, $id)
+  public function purchase(Request $request, $id) // ← $id を受け取るようにする
   {
-    $product = Product::findOrFail($id);
-
-    // 在庫数を超えていないかバリデーション
     $request->validate([
-      'quantity' => 'required|integer|min:1|max:' . $product->stock,
+      'quantity' => 'required|integer|min:1',
     ]);
 
-    $quantity = $request->input('quantity');
+    // URLの {id} を商品IDとして使う
+    $product = Product::find($id);
 
-    // 在庫チェック
-    if ($product->stock < $quantity) {
-      return response()->json([
-        'success' => false,
-        'message' => '在庫が不足しています。'
-      ], 422);
+    if (!$product) {
+      return response()->json(['message' => '商品が見つかりません。'], 404);
     }
 
-    // 注文履歴（salesテーブル）に保存
-    Sale::create([
-      'user_id' => Auth::id(),
-      'product_id' => $product->id,
-      'quantity' => $quantity,
-      'price' => $product->price,
-    ]);
+    if ($product->stock < $request->input('quantity')) {
+      return response()->json(['message' => '在庫が不足しています。'], 400);
+    }
 
-    // 在庫数を減らす
-    $product->decrement('stock', $quantity);
+    DB::beginTransaction();
+    try {
+      $sale = Sale::create([
+        'user_id' => Auth::id(),
+        'product_id' => $id,
+        'quantity' => $request->input('quantity'),
+      ]);
 
-    // ここで必ずJSONを返す（JavaScriptがこれを受け取ります）
-    return response()->json([
-      'success' => true,
-      'message' => '購入が完了しました！',
-    ]);
+      $product->decrement('stock', $request->input('quantity'));
+
+      DB::commit();
+
+      return response()->json([
+        'success' => true, 
+        'message' => '購入が完了しました',
+        'redirect_url' => route('home')
+      ], 200);
+    } catch (\Exception $e) {
+      DB::rollBack();
+      return response()->json(['message' => '購入処理に失敗しました'], 500);
+    }
   }
 
 

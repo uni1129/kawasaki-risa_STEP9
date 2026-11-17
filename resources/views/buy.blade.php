@@ -52,7 +52,7 @@
 
       <!-- 会社名 -->
       <div class="product-company-section">
-      <p>会社：{{ $product->company->name ?? '' }}</p>
+      <p>会社：{{ $product->company->name }}</p>
       </div>
     </div>
 

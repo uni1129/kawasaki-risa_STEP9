@@ -12,12 +12,12 @@
     <h2>商品一覧</h2>
 
     <!-- 検索バー -->
-    <form id="search-form" method="GET" action="{{ route('products.index') }}" class="search-form">
+    <form id="search-form" method="GET" action="{{ route('home') }}" class="search-form">
         <input type="text" id="search-keyword" name="keyword" value="{{ request('keyword') }}" placeholder="商品名を入力" class="search-input-text">
         <input type="number" id="search-min-price" name="min_price" value="{{ request('min_price') }}" placeholder="最低価格" class="search-input-number">
         <span>〜</span>
         <input type="number" id="search-max-price" name="max_price" value="{{ request('max_price') }}" placeholder="最高価格" class="search-input-number">
-        <button type="button" id="search-btn" class="search-btn">検索</button>
+        <button type="submit" id="search-btn" class="search-btn">検索</button>
     </form>
 
 

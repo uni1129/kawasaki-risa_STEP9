@@ -23,15 +23,18 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        // セッション認証を試みる
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            // intended()を使うことで、アクセスしようとして弾かれた元のページやホームへ遷移します
-            return redirect()->intended(route('home'));
+
+            // ログイン成功時はホーム画面などにリダイレクト
+            return redirect()->intended('/home');
         }
 
+        // 失敗時はエラーメッセージと共にログイン画面に戻る
         return back()->withErrors([
-            'email' => 'メールアドレスまたはパスワードが正しくありません。',
-        ]);
+            'email' => 'ログイン情報が正しくありません。',
+        ])->onlyInput('email');
     }
 
     // 会員登録画面表示
@@ -71,5 +74,28 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/login');
+    }
+
+    // API用ログイン処理を追加
+    public function apiLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json(['message' => 'ログインに失敗しました'], 401); //[cite: 5]
+        }
+
+        $user = Auth::user();
+
+        // アクセストークンを発行
+        $token = $user->createToken('auth_token')->plainTextToken; //[cite: 5]
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]); //[cite: 5]
     }
 }

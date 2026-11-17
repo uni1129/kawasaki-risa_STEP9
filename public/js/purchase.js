@@ -27,49 +27,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // モーダルの「購入する（確定）」押下時
   if (modalConfirm) {
-      modalConfirm.onclick = function () {
-          const quantityInput = document.getElementById('quantity');
-          const quantity = quantityInput ? quantityInput.value : 1;
+    modalConfirm.onclick = function () {
+        const quantityInput = document.getElementById('quantity');
+        const quantity = quantityInput ? quantityInput.value : 1;
 
-          const tokenElement = document.querySelector('input[name="_token"]');
-          const csrfToken = tokenElement ? tokenElement.value : '';
+        const tokenElement = document.querySelector('input[name="_token"]');
+        const csrfToken = tokenElement ? tokenElement.value : '';
 
-          // ※ routes/api.php を使用している場合は '/api/product/...` にしてください
-          // web.php のままであれば '/product/...' のままで大丈夫です
-          fetch(`/product/${productId}/buy`, {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRF-TOKEN': csrfToken,
-                  'Accept': 'application/json'
-              },
-              body: JSON.stringify({
-                  quantity: quantity
-              })
-          })
-          .then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  alert(data.message);
-                  window.location.href = data.redirect_url || '/home';
-              } else {
-                  alert(data.message || '購入処理に失敗しました。');
-                  if (modal) {
-                      modal.classList.remove('is-active');
-                  }
-              }
-          })
-          .catch(error => {
-              console.error('Error:', error);
-              alert('通信エラーが発生しました。');
-              if (modal) {
-                  modal.classList.remove('is-active');
-              }
-          });
-      };
-  }
+        fetch(`/product/${productId}/buy`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                quantity: quantity
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = data.redirect_url || '/home';
+            } else {
+                alert(data.message || '購入処理に失敗しました。');
+                if (modal) {
+                    modal.classList.remove('is-active');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('通信エラーが発生しました。');
+            if (modal) {
+                modal.classList.remove('is-active');
+            }
+        });
+    };
+}
 });
-
 
 // 検索バー
 document.addEventListener('DOMContentLoaded', () => {
@@ -82,33 +79,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const keyword = keywordInput ? keywordInput.value : '';
         const minPrice = minPriceInput ? minPriceInput.value : '';
         const maxPrice = maxPriceInput ? maxPriceInput.value : '';
-
+    
         const params = new URLSearchParams({
             keyword: keyword,
             min_price: minPrice,
             max_price: maxPrice
         });
-
+    
         try {
             const response = await fetch(`/home?${params.toString()}`, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
-
+    
             if (response.ok) {
                 const html = await response.text();
-                if (productListContainer) {
-                    productListContainer.innerHTML = html; // 非同期でテーブル部分だけを書き換える
+                
+                // ★ 取得したHTML文字列を一時的なDOMに変換する
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // ★ サーバーから返ったHTMLの中から #product-list の中身だけを取り出す
+                const newProductList = doc.querySelector('#product-list');
+    
+                if (productListContainer && newProductList) {
+                    // 該当部分だけを綺麗に差し替える
+                    productListContainer.innerHTML = newProductList.innerHTML;
                 }
             }
         } catch (error) {
             console.error('非同期検索エラー:', error);
         }
     };
-
     // 文字入力や価格変更（input）のたびに非同期検索を実行
     if (keywordInput) keywordInput.addEventListener('input', fetchSearchResults);
     if (minPriceInput) minPriceInput.addEventListener('input', fetchSearchResults);
     if (maxPriceInput) maxPriceInput.addEventListener('input', fetchSearchResults);
 });
+

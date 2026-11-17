@@ -79,23 +79,18 @@ class AuthController extends Controller
     // API用ログイン処理を追加
     public function apiLogin(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'ログインに失敗しました'], 401); //[cite: 5]
+        $user = User::where('email', $request->email)->first();
+    
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => '認証に失敗しました。'], 401);
         }
-
-        $user = Auth::user();
-
-        // アクセストークンを発行
-        $token = $user->createToken('auth_token')->plainTextToken; //[cite: 5]
-
+    
+        // トークンを発行して返す
+        $token = $user->createToken('api-token')->plainTextToken;
+    
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]); //[cite: 5]
+            'token' => $token,
+            'message' => 'ログイン成功'
+        ]);
     }
 }

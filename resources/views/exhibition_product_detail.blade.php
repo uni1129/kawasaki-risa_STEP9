@@ -39,7 +39,7 @@
     <!-- 会社名 -->
     <div class="detail-group">
       <span class="detail-label">会社：</span>
-      <span class="detail-value">{{ $product->company->name }}</span>
+      <span class="detail-value">{{ $product->company->company_name }}</span>
     </div>
 
     <!-- お気に入りハートマーク -->

@@ -24,7 +24,6 @@ class ProductController extends Controller
       $query->where('user_id', '!=', Auth::id());
     }
 
-
     // 商品名検索
     if (!empty($keyword)) {
       $query->where('product_name', 'LIKE', "%{$keyword}%");
@@ -155,7 +154,7 @@ class ProductController extends Controller
       DB::commit();
 
       return response()->json([
-        'success' => true, 
+        'success' => true,
         'message' => '購入が完了しました',
         'redirect_url' => route('home')
       ], 200);

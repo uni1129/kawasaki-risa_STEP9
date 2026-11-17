@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const tokenElement = document.querySelector('input[name="_token"]');
         const csrfToken = tokenElement ? tokenElement.value : '';
 
-        fetch(`/product/${productId}/buy`, {
+        fetch(`/product/${productId}/buy`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,53 +68,79 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 });
 
-// 検索バー
-document.addEventListener('DOMContentLoaded', () => {
-    const keywordInput = document.querySelector('#search-keyword');
-    const minPriceInput = document.querySelector('#search-min-price');
-    const maxPriceInput = document.querySelector('#search-max-price');
-    const productListContainer = document.querySelector('#product-list');
 
-    const fetchSearchResults = async () => {
+
+// 検索バー
+document.addEventListener('DOMContentLoaded', function () {
+    const searchForm = document.getElementById('search-form');
+    const keywordInput = document.getElementById('search-keyword');
+    const minPriceInput = document.getElementById('search-min-price');
+    const maxPriceInput = document.getElementById('search-max-price');
+
+    // 共通の非同期検索を実行する関数
+    function executeSearch() {
         const keyword = keywordInput ? keywordInput.value : '';
         const minPrice = minPriceInput ? minPriceInput.value : '';
         const maxPrice = maxPriceInput ? maxPriceInput.value : '';
-    
+
+        // クエリパラメータを組み立てる
         const params = new URLSearchParams({
             keyword: keyword,
             min_price: minPrice,
             max_price: maxPrice
         });
-    
-        try {
-            const response = await fetch(`/home?${params.toString()}`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-    
-            if (response.ok) {
-                const html = await response.text();
-                
-                // ★ 取得したHTML文字列を一時的なDOMに変換する
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                
-                // ★ サーバーから返ったHTMLの中から #product-list の中身だけを取り出す
-                const newProductList = doc.querySelector('#product-list');
-    
-                if (productListContainer && newProductList) {
-                    // 該当部分だけを綺麗に差し替える
-                    productListContainer.innerHTML = newProductList.innerHTML;
-                }
-            }
-        } catch (error) {
-            console.error('非同期検索エラー:', error);
-        }
-    };
-    // 文字入力や価格変更（input）のたびに非同期検索を実行
-    if (keywordInput) keywordInput.addEventListener('input', fetchSearchResults);
-    if (minPriceInput) minPriceInput.addEventListener('input', fetchSearchResults);
-    if (maxPriceInput) maxPriceInput.addEventListener('input', fetchSearchResults);
-});
 
+        // 非同期通信（Fetch API）でサーバーにリクエスト
+        fetch(`/home?${params.toString()}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'text/html'
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            // 取得したHTMLから商品一覧部分を抽出して差し替える
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newProductList = doc.getElementById('product-list');
+
+            const currentProductList = document.getElementById('product-list');
+            if (newProductList && currentProductList) {
+                currentProductList.innerHTML = newProductList.innerHTML;
+            }
+        })
+        .catch(error => {
+            console.error('非同期検索エラー:', error);
+        });
+    }
+
+    // 検索ボタンを押したとき（非同期検索）
+    if (searchForm) {
+        searchForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            executeSearch();
+        });
+    }
+
+    // キーワード欄に文字を入力したとき
+    if (keywordInput) {
+        keywordInput.addEventListener('input', function () {
+            executeSearch();
+        });
+    }
+
+    // 最低価格が変更されたとき
+    if (minPriceInput) {
+        minPriceInput.addEventListener('input', function () {
+            executeSearch();
+        });
+    }
+
+    // 最高価格が変更されたとき
+    if (maxPriceInput) {
+        maxPriceInput.addEventListener('input', function () {
+            executeSearch();
+        });
+    }
+});
